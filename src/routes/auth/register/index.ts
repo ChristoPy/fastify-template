@@ -9,10 +9,11 @@ const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
       body: {
         type: 'object',
         properties: {
+          name: { type: 'string' },
           email: { type: 'string' },
           password: { type: 'string' },
         },
-        required: ['email', 'password'],
+        required: ['name', 'email', 'password'],
       },
     },
     handler: async function (request, reply) {
