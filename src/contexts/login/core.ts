@@ -1,9 +1,10 @@
 import { compareSync } from 'bcrypt';
-import { PublicUser, UserModel } from "../../models/user";
-import { LoginInput } from "./types";
+import { sign } from 'jsonwebtoken'
+import { UserModel } from "../../models/user";
+import { LoginInput, LoginResult } from "./types";
 import { Result } from '../../models/result';
 
-export async function login(data: LoginInput): Promise<Result<PublicUser>> {
+export async function login(data: LoginInput): Promise<Result<LoginResult>> {
   const user = await UserModel.findOne({ email: data.email });
   if (!user) {
     return { error: 'E-mail or password is incorrect' }
@@ -14,11 +15,16 @@ export async function login(data: LoginInput): Promise<Result<PublicUser>> {
     return { error: 'E-mail or password is incorrect' }
   }
 
+  const token = sign({ _id: user._id }, process.env.JWT_SECRET as string, { expiresIn: '1d' });
+
   return {
     data: {
-      _id: user._id.toString(),
-      name: user.name,
-      email: user.email,
+      token,
+      user: {
+        _id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+      }
     },
   }
 }
