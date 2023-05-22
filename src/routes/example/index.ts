@@ -1,9 +1,14 @@
-import { FastifyPluginAsync } from "fastify"
+import { FastifyPluginAsync, RouteOptions } from "fastify"
+import { handler } from "./handler"
+
+const options: RouteOptions = {
+  method: 'GET',
+  url: '/',
+  handler
+}
 
 const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
-  fastify.get('/', async function (request, reply) {
-    return 'this is an example'
-  })
+  fastify.route(options)
 }
 
 export default example;
