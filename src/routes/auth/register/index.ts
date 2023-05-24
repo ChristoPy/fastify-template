@@ -1,5 +1,5 @@
 import { FastifyPluginAsync, RouteOptions } from "fastify"
-import handler from "../../../contexts/login/handler"
+import handler from "../../../contexts/register/handler"
 
 const example: FastifyPluginAsync = async (fastify, opts): Promise<void> => {
   const options: RouteOptions = {
