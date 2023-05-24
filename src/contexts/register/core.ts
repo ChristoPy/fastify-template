@@ -19,9 +19,9 @@ export async function register(data: RegisterInput): Promise<Result<PublicUser>>
 
   return {
     data: {
-      _id: user._id.toString(),
-      name: user.name,
-      email: user.email,
+      _id: newUser._id.toString(),
+      name: newUser.name,
+      email: newUser.email,
     },
   }
 }
