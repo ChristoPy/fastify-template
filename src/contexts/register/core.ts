@@ -5,7 +5,7 @@ import { Result } from '../../models/result';
 
 export async function register(data: RegisterInput): Promise<Result<PublicUser>> {
   const user = await UserModel.findOne({ email: data.email });
-  if (!user) {
+  if (user) {
     return { error: 'E-mail alrady in use' }
   }
 
